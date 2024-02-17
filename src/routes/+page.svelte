@@ -4,9 +4,23 @@
   const BOX_COL = 3;
   const BOX_AREA = BOX_ROW * BOX_COL;
 
-  let matrix = Array(BOX_AREA)
-    .fill(EMPTY)
-    .map((r) => Array(BOX_AREA).fill(EMPTY));
+//   let game_matrix = Array(BOX_AREA)
+//     .fill(EMPTY)
+//     .map((r) => Array(BOX_AREA).fill(EMPTY));
+
+    let game_matrix = [
+    [7, 8, 0, 6, 0, 9, 5, 0, 0],
+    [0, 0, 6, 7, 0, 0, 0, 0, 0],
+    [0, 0, 3, 0, 0, 0, 0, 8, 0],
+    [0, 0, 8, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 9, 0, 0],
+    [4, 2, 0, 3, 0, 0, 0, 5, 0],
+    [5, 7, 0, 4, 0, 0, 0, 2, 0],
+    [6, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 3, 0, 0, 4]
+  ];
+
+
 
   function validate(r, c, e) {
     if (![1, 2, 3, 4, 5, 6, 7, 8, 9].includes(+e.key))
@@ -38,7 +52,12 @@
     return {cell_empty: false, row, col}
   }
 
-  function solve_sudoku(matrix) {
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async function solve_sudoku(matrix) {
+    await sleep(1);
     let {cell_empty, row, col} = empty_cell(matrix);
     
     if (cell_empty === false) {
@@ -48,10 +67,12 @@
     for (let num = 1; num <= (BOX_AREA); num++)
       if (is_move_valid(matrix, row, col, num)) {
         matrix[row][col] = num;
-        if (solve_sudoku(matrix))
+        game_matrix = [...matrix];
+        if (await solve_sudoku(matrix))
           return true;
 
         matrix[row][col] = EMPTY;
+        game_matrix = [...matrix];
       }
     
     return false;
@@ -93,8 +114,8 @@
   }
 
   function solve() {
-    let solution = sudoku_solver(matrix);
-    matrix = [...solution];
+    let solution = sudoku_solver(game_matrix);
+    game_matrix = [...solution];
   }
 </script>
 
@@ -105,16 +126,16 @@
   </p>
 
   <div class="row">
-    {#each matrix as _, r}
-      {#each matrix[r] as _, c}
+    {#each game_matrix as _, r}
+      {#each game_matrix[r] as _, c}
         <div
           class="cell"
           contentEditable="true"
           on:keydown={(e) => validate(r, c, e)}
         >
-          {#if matrix[r][c] != EMPTY}
-            {matrix[r][c]}
-          {/if}
+          <!-- {#if matrix[r][c] != EMPTY} -->
+            {game_matrix[r][c]}
+          <!-- {/if} -->
         </div>
       {/each}
     {/each}
