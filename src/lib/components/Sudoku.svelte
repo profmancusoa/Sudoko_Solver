@@ -147,5 +147,6 @@
     display: grid;
     grid-template-columns: repeat(9, 1fr);
     gap: 0px;
+    min-width: clamp(100px, 50vw, 600px);
   }
 </style>

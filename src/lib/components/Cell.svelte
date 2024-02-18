@@ -22,7 +22,7 @@
     box-sizing: border-box;
     justify-content: center;
     align-items: center;
-    font-size: 1.4rem;
+    font-size: clamp(0.4rem, 2vw, 1.4rem);
   }
 
   .cell:nth-child(3n) {
