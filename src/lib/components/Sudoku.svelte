@@ -1,4 +1,6 @@
 <script>
+  import Cell from "./Cell.svelte";
+
   const EMPTY = 0;
   const BOX_ROW = 3;
   const BOX_COL = 3;
@@ -116,13 +118,13 @@
 <div class="row">
   {#each game_matrix as _, r}
     {#each game_matrix[r] as _, c}
-      <div
-        class="cell"
-        contentEditable="true"
-        on:keydown={(e) => validate(r, c, e)}
+      <Cell
+        row={r}
+        col={c}
+        validator={validate}
       >
         {game_matrix[r][c]}
-      </div>
+      </Cell>
     {/each}
   {/each}
 </div>
@@ -145,40 +147,5 @@
     display: grid;
     grid-template-columns: repeat(9, 1fr);
     gap: 0px;
-  }
-
-  .cell {
-    display: flex;
-    border: 1px dashed grey;
-    aspect-ratio: 1;
-    padding: 10px;
-    box-sizing: border-box;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.4rem;
-  }
-
-  .cell:nth-child(3n) {
-    border-right: 2px solid black;
-  }
-
-  .cell:nth-child(9n + 1) {
-    border-left: 2px solid black;
-  }
-
-  .cell:nth-child(-n + 9) {
-    border-top: 2px solid black;
-  }
-
-  .cell:nth-child(n + 28):nth-child(-n + 36) {
-    border-top: 2px solid black;
-  }
-
-  .cell:nth-child(n + 55):nth-child(-n + 63) {
-    border-top: 2px solid black;
-  }
-
-  .cell:nth-child(n + 73):nth-child(-n + 81) {
-    border-bottom: 2px solid black;
   }
 </style>
