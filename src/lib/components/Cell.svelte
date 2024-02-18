@@ -2,6 +2,10 @@
   export let row;
   export let col;
   export let validator;
+  export let content;
+
+  if(content == "0")
+    content = "";
 </script>
 
 <div
@@ -9,7 +13,7 @@
   contentEditable="true"
   on:keydown={(e) => validator(row, col, e)}
 >
-  <slot />
+  {content}
 </div>
 
 

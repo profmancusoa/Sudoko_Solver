@@ -6,17 +6,7 @@
   const BOX_COL = 3;
   const BOX_AREA = BOX_ROW * BOX_COL;
 
-  let game_matrix = [
-    [7, 8, 0, 6, 0, 9, 5, 0, 0],
-    [0, 0, 6, 7, 0, 0, 0, 0, 0],
-    [0, 0, 3, 0, 0, 0, 0, 8, 0],
-    [0, 0, 8, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 0, 9, 0, 0],
-    [4, 2, 0, 3, 0, 0, 0, 5, 0],
-    [5, 7, 0, 4, 0, 0, 0, 2, 0],
-    [6, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 3, 0, 0, 4]
-  ];
+  let game_matrix = Array.from({ length: 9 }, () => Array(9).fill(0));
 
 
   function validate(r, c, e) {
@@ -122,9 +112,8 @@
         row={r}
         col={c}
         validator={validate}
-      >
-        {game_matrix[r][c]}
-      </Cell>
+        content={game_matrix[r][c]}
+      />
     {/each}
   {/each}
 </div>
