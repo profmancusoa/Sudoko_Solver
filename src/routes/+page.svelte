@@ -5,7 +5,7 @@
 <main>
   <h1>Sudoku Solver</h1>
   <p>
-    Inserisci i valori noti nella griglia e premi Solve per risolvere il Sudoko
+    Inserisci i valori noti nella griglia e premi Solve per risolvere il Sudoku
   </p>
 
   <Sudoku />
